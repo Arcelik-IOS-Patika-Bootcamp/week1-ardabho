@@ -48,3 +48,13 @@ prices = [
     "Butter"    : 25,
     "Book"      : 60
 ]
+
+//add new item
+prices["Airpods Pro"] = 4000
+//remove the butter
+prices.removeValue(forKey: "Butter")
+
+prices.forEach { (key,value) in
+    print("Product: \(key)     Value: \(value)")
+}
+
