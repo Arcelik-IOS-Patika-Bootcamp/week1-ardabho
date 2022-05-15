@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 // Array and optionals practice
 
@@ -37,6 +37,8 @@ guitarBrandsSet.remove("Gibson")
 guitarBrandsSet.remove("Taylor")
 
 guitarBrandsSet
+
+
 //---------------------------------------------------------------------------------------------
 //Dictionary practice
 
@@ -51,6 +53,7 @@ prices = [
 
 //add new item
 prices["Airpods Pro"] = 4000
+
 //remove the butter
 prices.removeValue(forKey: "Butter")
 
@@ -58,3 +61,7 @@ prices.forEach { (key,value) in
     print("Product: \(key)     Value: \(value)")
 }
 
+//filter expensive products and assign them to a different dictionary
+let expensiveProducts = prices.filter { (key, value) in
+    return value >= 5000
+}
