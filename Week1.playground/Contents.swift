@@ -18,6 +18,7 @@ if let safeBrands = watchBrands {
     print("Error: brands array is nil")
 }
 
+print("--------------------------------------------------------------------------------------------------------------------")
 //----------------------------------------------------------------------------------------------
 // Set Practice
 
@@ -38,7 +39,7 @@ guitarBrandsSet.remove("Taylor")
 
 guitarBrandsSet
 
-
+print("--------------------------------------------------------------------------------------------------------------------")
 //---------------------------------------------------------------------------------------------
 //Dictionary practice
 
@@ -66,6 +67,7 @@ let expensiveProducts = prices.filter { (key, value) in
     return value >= 5000
 }
 
+print("--------------------------------------------------------------------------------------------------------------------")
 //---------------------------------------------------------------------------------------------
 //Structs and enum
 
@@ -97,8 +99,27 @@ struct Car {
             }
         }
     }
+    
+    /// Sets the passenger count of the car. Returns nothing
+    /// - Parameter noOfPassengers: Number of current passengers in the car
+    mutating func setPassengerCount(noOfPassengers: Int) {
+        
+        guard noOfPassengers <= seatCount else {
+            print("The number of passengers cannot exceed the number of seats in the car!")
+            return
+        }
+        passengerCount = noOfPassengers
+    }
+    
+    /// Get the number of passengers in the car
+    /// - Returns: Number of passengers in the car
+    func getPassengerCount() -> Int {
+        return passengerCount
+    }
+    
 }
 
+//Enum for the cars type
 enum CarType {
     case sport
     case sedan
@@ -107,4 +128,5 @@ enum CarType {
 }
 
 var car = Car(brandName: "Audi", modelName: "A3", carType: .hatchBack)
-
+car.setPassengerCount(noOfPassengers: 5)
+car.getPassengerCount()
