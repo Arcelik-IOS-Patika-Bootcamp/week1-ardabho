@@ -73,9 +73,9 @@ print("-------------------------------------------------------------------------
 
 struct Car {
     
-    var brandName: String
-    var modelName: String
-    var carType: CarType
+    let brandName: String
+    let modelName: String
+    let carType: CarType //The type of car. Sedan, Sport etc. See the CarType enum
     private var passengerCount: Int
     
     init(brandName: String, modelName: String , carType: CarType) {
@@ -85,6 +85,7 @@ struct Car {
         passengerCount = 0
     }
     
+    //Number of seats set according to cars type.
     private var seatCount: Int {
         get {
             switch carType {
@@ -102,9 +103,9 @@ struct Car {
     
     /// Sets the passenger count of the car. Returns nothing
     /// - Parameter noOfPassengers: Number of current passengers in the car
-    mutating func setPassengerCount(noOfPassengers: Int) {
+    mutating func setPassengerCount(count noOfPassengers: Int) {
         
-        guard noOfPassengers <= seatCount else {
+        guard (noOfPassengers <= seatCount) && (noOfPassengers > 0) else {
             print("The number of passengers cannot exceed the number of seats in the car!")
             return
         }
@@ -117,6 +118,38 @@ struct Car {
         return passengerCount
     }
     
+    ///Start the engine
+    func startTheCar() {
+        if passengerCount != 0 {
+            print("Engine started")
+        } else {
+            print("There is no people in the car to start it")
+        }
+    }
+    
+    
+    /// Pick up some passengers
+    /// - Parameter passengersForPickUp: Number of passengers to pick up
+    mutating func pickUpPassenger(count passengersForPickUp: Int) {
+        let newPassengerNumber = passengerCount + passengersForPickUp
+        if newPassengerNumber > seatCount {
+            print("The number of passengers cannot exceed the number of seats in the car!")
+        } else {
+            passengerCount = newPassengerNumber
+        }
+    }
+    
+    /// Drop some passengers
+    /// - Parameter passengersToDrop: Number of passengers to drop off
+    mutating func dropPassengers(count passengersToDrop: Int) {
+        let newPassengerNumber = passengerCount - passengersToDrop
+        if newPassengerNumber < 0 {
+            print("Number of people in car cant be negative!")
+        } else {
+            passengerCount = newPassengerNumber
+        }
+    }
+
 }
 
 //Enum for the cars type
@@ -128,5 +161,9 @@ enum CarType {
 }
 
 var car = Car(brandName: "Audi", modelName: "A3", carType: .hatchBack)
-car.setPassengerCount(noOfPassengers: 5)
+car.setPassengerCount(count: 3)
+car.startTheCar()
+car.pickUpPassenger(count: 1)
+car.getPassengerCount()
+car.dropPassengers(count: 3)
 car.getPassengerCount()
