@@ -65,3 +65,37 @@ prices.forEach { (key,value) in
 let expensiveProducts = prices.filter { (key, value) in
     return value >= 5000
 }
+
+//---------------------------------------------------------------------------------------------
+//Structs and enum
+
+struct Car {
+    
+    var brandName: String
+    var modelName: String
+    var carType: CarType
+    
+    private var seatCount: Int {
+        get {
+            switch carType {
+            case .sport:
+                return 2
+            case .sedan:
+                return 4
+            case .hatchBack:
+                return 4
+            case .jeep:
+                return 6
+            }
+        }
+    }
+}
+
+enum CarType {
+    case sport
+    case sedan
+    case hatchBack
+    case jeep
+}
+
+var car = Car(brandName: "Audi", modelName: "A3", carType: .sedan)
