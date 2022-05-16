@@ -74,6 +74,14 @@ struct Car {
     var brandName: String
     var modelName: String
     var carType: CarType
+    private var passengerCount: Int
+    
+    init(brandName: String, modelName: String , carType: CarType) {
+        self.brandName = brandName
+        self.modelName = modelName
+        self.carType = carType
+        passengerCount = 0
+    }
     
     private var seatCount: Int {
         get {
@@ -98,4 +106,5 @@ enum CarType {
     case jeep
 }
 
-var car = Car(brandName: "Audi", modelName: "A3", carType: .sedan)
+var car = Car(brandName: "Audi", modelName: "A3", carType: .hatchBack)
+
