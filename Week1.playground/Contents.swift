@@ -59,7 +59,7 @@ prices["Airpods Pro"] = 4000
 prices.removeValue(forKey: "Butter")
 
 prices.forEach { (key,value) in
-    print("Product: \(key)     Value: \(value)")
+    print("Product: \(key)     Price: \(value)")
 }
 
 //filter expensive products and assign them to a different dictionary
@@ -77,12 +77,14 @@ struct Car {
     let modelName: String
     let carType: CarType //The type of car. Sedan, Sport etc. See the CarType enum
     private var passengerCount: Int
+    private var engineStatus: Bool // True if the engine is running
     
     init(brandName: String, modelName: String , carType: CarType) {
         self.brandName = brandName
         self.modelName = modelName
         self.carType = carType
         passengerCount = 0
+        engineStatus = false
     }
     
     //Number of seats set according to cars type.
@@ -119,14 +121,24 @@ struct Car {
     }
     
     ///Start the engine
-    func startTheCar() {
+    mutating func startTheCar() {
         if passengerCount != 0 {
             print("Engine started")
+            engineStatus = true
         } else {
             print("There is no people in the car to start it")
         }
     }
     
+    ///Stop the engine
+    mutating func stopTheCar() {
+        if passengerCount != 0 {
+            print("Engine stopped")
+            engineStatus = false
+        } else {
+            print("There is no people in the car to start it")
+        }
+    }
     
     /// Pick up some passengers
     /// - Parameter passengersForPickUp: Number of passengers to pick up
@@ -144,9 +156,20 @@ struct Car {
     mutating func dropPassengers(count passengersToDrop: Int) {
         let newPassengerNumber = passengerCount - passengersToDrop
         if newPassengerNumber < 0 {
-            print("Number of people in car cant be negative!")
+            print("Number of people in car can't be negative!")
         } else {
             passengerCount = newPassengerNumber
+        }
+    }
+    
+    func drive() {
+        if passengerCount > 0  && engineStatus {
+            print("Driving...")
+        }
+        else if passengerCount <= 0  && engineStatus{
+            print("There must be a driver in the car to drive")
+        } else if passengerCount >= 0  && !engineStatus {
+            print("You have to start the engine first")
         }
     }
 
@@ -160,10 +183,30 @@ enum CarType {
     case jeep
 }
 
-var car = Car(brandName: "Audi", modelName: "A3", carType: .hatchBack)
-car.setPassengerCount(count: 3)
-car.startTheCar()
-car.pickUpPassenger(count: 1)
-car.getPassengerCount()
-car.dropPassengers(count: 3)
-car.getPassengerCount()
+var sedanCar = Car(brandName: "Audi", modelName: "A3", carType: .hatchBack)
+var sportsCar = Car(brandName: "Mercedes", modelName: "Amg Gt", carType: .sport)
+sportsCar.setPassengerCount(count: 2)
+sportsCar.startTheCar()
+sportsCar.drive()
+sportsCar.dropPassengers(count: 1)
+sportsCar.stopTheCar()
+
+//---------------------------------------------------------------------------------------------
+//Classes
+
+class Computer {
+    
+}
+
+class Desktop: Computer {
+    
+}
+
+class Laptop: Computer {
+    
+}
+
+class SmartPhone: Computer {
+    
+}
+
