@@ -195,18 +195,66 @@ sportsCar.stopTheCar()
 //Classes
 
 class Computer {
+    private var ram = 0
+    private var storage = 0
+    private var brand: String
+    
+    init(ram: Int, storage: Int, brand: String) {
+        self.ram = ram
+        self.storage = storage
+        self.brand = brand
+    }
+    
+    func boot() {
+        //Start device
+    }
     
 }
 
 class Desktop: Computer {
     
+    private var caseType: String?
+    
+    init(brand: String, caseType: String?, ram: Int, storage: Int) {
+        self.caseType = caseType
+        super.init(ram: ram, storage: storage, brand: brand)
+    }
+    
+    override func boot() {
+        // Desktop boot
+    }
+    
 }
 
 class Laptop: Computer {
+    
+    private var screenSize: Float
+    
+    init(brand: String, caseType: String?, ram: Int, storage: Int, screenSize: Float) {
+        self.screenSize = screenSize
+        super.init(ram: ram, storage: storage, brand: brand)
+    }
+    
+    override func boot() {
+        //Laptop boot
+    }
     
 }
 
 class SmartPhone: Computer {
     
+    private var screenSize: Float
+    
+    init(brand: String, caseType: String?, ram: Int, storage: Int, screenSize: Float) {
+        self.screenSize = screenSize
+        super.init(ram: ram, storage: storage, brand: brand)
+    }
+    
+    override func boot() {
+        //SmartPhone boot
+    }
+
 }
+
+Desktop(brand: "Apple", caseType: nil, ram: 8, storage: 512)
 
