@@ -73,9 +73,9 @@ print("-------------------------------------------------------------------------
 
 struct Car {
     
-    let brandName: String
-    let modelName: String
-    let carType: CarType //The type of car. Sedan, Sport etc. See the CarType enum
+    private let brandName: String
+    private let modelName: String
+    private let carType: CarType //The type of car. Sedan, Sport etc. See the CarType enum
     private var passengerCount: Int
     private var engineStatus: Bool // True if the engine is running
     
@@ -162,6 +162,7 @@ struct Car {
         }
     }
     
+    ///Drive the car
     func drive() {
         if passengerCount > 0  && engineStatus {
             print("Driving...")
@@ -172,7 +173,7 @@ struct Car {
             print("You have to start the engine first")
         }
     }
-
+    
 }
 
 //Enum for the cars type
@@ -191,9 +192,13 @@ sportsCar.drive()
 sportsCar.dropPassengers(count: 1)
 sportsCar.stopTheCar()
 
+print("--------------------------------------------------------------------------------------------------------------------")
+
 //---------------------------------------------------------------------------------------------
 //Classes
 
+
+/// Computer SuperClass
 class Computer {
     private var ram = 0
     private var storage = 0
@@ -205,12 +210,21 @@ class Computer {
         self.brand = brand
     }
     
+    ///Start the device
     func boot() {
-        //Start device
+        print("Booting device now...")
+    }
+    
+    ///Turns device off
+    func turnOff(){
+        print("Turning off device now...")
     }
     
 }
 
+/**
+ Subclass of Computer. Creates a desktop computer.
+ */
 class Desktop: Computer {
     
     private var caseType: String?
@@ -220,41 +234,98 @@ class Desktop: Computer {
         super.init(ram: ram, storage: storage, brand: brand)
     }
     
+    ///Start the device
     override func boot() {
-        // Desktop boot
+        super.boot()
+        print("Desktop computer booted succesful!")
     }
     
 }
 
+/**
+ Subclass of Computer. Creates a laptop.
+ */
 class Laptop: Computer {
     
-    private var screenSize: Float
+    private var screenSize: Float //Screen size in inches
     
-    init(brand: String, caseType: String?, ram: Int, storage: Int, screenSize: Float) {
+    init(brand: String, ram: Int, storage: Int, screenSize: Float) {
         self.screenSize = screenSize
         super.init(ram: ram, storage: storage, brand: brand)
     }
     
+    ///Start the device
     override func boot() {
-        //Laptop boot
+        super.boot()
+        print("Laptop booted succesfully!")
     }
     
 }
 
+/**
+ Subclass of Computer. Creates a smartphone.
+ */
 class SmartPhone: Computer {
     
-    private var screenSize: Float
+    private var screenSize: Float //Screen size in inches
+    private var isBusy: Bool? //Set to true if there are any current tasks running
     
-    init(brand: String, caseType: String?, ram: Int, storage: Int, screenSize: Float) {
+    init(brand: String, ram: Int, storage: Int, screenSize: Float) {
         self.screenSize = screenSize
         super.init(ram: ram, storage: storage, brand: brand)
     }
     
+    ///Start the device
     override func boot() {
-        //SmartPhone boot
+        super.boot()
+        print("Smartphone booted succesfully!")
     }
-
+    
+    ///Changes the current process state of the phone to opposite value.
+    func changeBusyState() {
+        if let safeBusy = isBusy {
+            isBusy = !safeBusy
+        }
+    }
+    
+    ///Used to set the Busy state
+    enum Busy {
+        case busy
+        case notBusy
+    }
+    
+    ///Sets the isBusy state of the smartphone to true or false. Should be set to true if there are any tasks running
+    func setBusyState(to state: Busy){
+        if state == .busy {
+            isBusy = true
+        } else {
+            isBusy = false
+        }
+    }
+    
+    ///Turn off the smartphone
+    override func turnOff() {
+        super.turnOff()
+        if let isBusy = isBusy {
+            isBusy ? print("Cant turn off phone while there are current tasks running") : print("Device turned off succesfully")
+        } else {
+            print("Device turned off succesfully")
+        }
+    }
+    
 }
 
-Desktop(brand: "Apple", caseType: nil, ram: 8, storage: 512)
+var homeComputer = Desktop(brand: "Apple", caseType: nil, ram: 8, storage: 512)
+homeComputer.boot()
 
+var workLaptop = Laptop(brand: "Apple", ram: 16, storage: 1024, screenSize: 16)
+workLaptop.boot()
+
+var personalPhone = SmartPhone(brand: "Samsung", ram: 6, storage: 256, screenSize: 6.1)
+personalPhone.boot()
+
+personalPhone.setBusyState(to: .busy)
+personalPhone.turnOff()
+
+personalPhone.changeBusyState()
+personalPhone.turnOff()
