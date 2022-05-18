@@ -329,3 +329,77 @@ personalPhone.turnOff()
 
 personalPhone.changeBusyState()
 personalPhone.turnOff()
+
+print("--------------------------------------------------------------------------------------------------------------------")
+
+//---------------------------------------------------------------------------------------------
+//Mixed practice
+
+///Variadic sum function. Takes as many Int parameters as you give
+func sum(numbers: Int...) -> Int{
+    var sum = 0
+    for number in numbers {
+        sum += number
+    }
+    return sum
+}
+
+sum(numbers: 1,2,4,5,6,7,3,9)
+
+//-----------------------------
+//throws keyword
+
+enum errorTypes: Error {
+    case fatal
+    case otherError
+}
+
+func checkError(errorName: String) throws -> Error {
+    if errorName == "fatal"{
+        return errorTypes.fatal
+    } else {
+        return errorTypes.otherError
+    }
+}
+
+try checkError(errorName: "fatal")
+
+//-----------------------------
+//Exiting multiple loops:
+
+outerLoop: for outerNum in 1...10 {
+    for innerNum in 1...10 {
+        if outerNum * innerNum == 50 {
+            break outerLoop
+        }
+    }
+}
+
+//-----------------------------
+//inout parameter:
+
+func square(of num: inout Int) {
+    num *= num
+}
+
+var inoutTestVariable = 8
+square(of: &inoutTestVariable)
+
+//-----------------------------
+//search an array for a word
+
+var nameArray = [String]()
+nameArray = ["John", "Arthur", "Uncle", "Bill", "Lenny", "Sadie", "Micah","Abigail", "Dutch", "Hosea","Javier"]
+
+func searchFor(_ searchName: String, in array: [String]) -> Bool {
+    for name in array {
+        if name == searchName {
+            return true
+        }
+    }
+    return false
+}
+
+searchFor("Arthur", in: nameArray)
+
+//-----------------------------
