@@ -391,6 +391,12 @@ square(of: &inoutTestVariable)
 var nameArray = [String]()
 nameArray = ["John", "Arthur", "Uncle", "Bill", "Lenny", "Sadie", "Micah","Abigail", "Dutch", "Hosea","Javier"]
 
+
+/// Searches an array for the given string
+/// - Parameters:
+///   - searchName: String value to be searched
+///   - array: Array to search
+/// - Returns: Bool
 func searchFor(_ searchName: String, in array: [String]) -> Bool {
     for name in array {
         if name == searchName {
@@ -403,3 +409,17 @@ func searchFor(_ searchName: String, in array: [String]) -> Bool {
 searchFor("Arthur", in: nameArray)
 
 //-----------------------------
+//closures
+
+var closureExample = {
+    print("Hello my name is Arda")
+}
+
+func closureFunction(action: () -> Void) {
+    action()
+}
+
+closureFunction {
+    closureExample()
+}
+
