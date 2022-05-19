@@ -423,3 +423,27 @@ closureFunction {
     closureExample()
 }
 
+//closure with single parameter
+func eatFood(action: (String) -> String) {
+    print("I am getting ready to eat")
+    let messageString = action("Tacos")
+    print(messageString)
+    print("All food is finished")
+}
+
+eatFood {
+    "I am eating \($0)"
+}
+
+print("---------")
+//closure with multiple parameters
+func eatMoreFood(action: (String, Int) -> String) {
+    print("I am getting ready to eat")
+    let messageString = action("Tacos", 6)
+    print(messageString)
+    print("All food is finished")
+}
+
+eatMoreFood { food, foodCount in
+    return "I am eating \(foodCount) \(food)"
+}
